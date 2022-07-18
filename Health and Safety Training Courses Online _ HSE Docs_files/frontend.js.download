@@ -1,0 +1,364 @@
+var canContinue = true;
+
+(function ($) {
+
+        var SITEURL = 'https://www.hsedocs.com/';
+
+        jQuery(document).on('keyup', '#send_name', function (e) {
+            var value = $(this).val();
+            console.log($(this).closest('.modal-content').find('iframe span.name').text());
+            $(this).closest('.modal-content').find('iframe span.name').text(value);
+        });
+
+        $('.icon-search').click(function (e) {
+            $('.search-bar').css({'margin-top': '15px', 'margin-bottom': '8px'});
+            $('.search-bar input').focus();
+            e.preventDefault();
+        });
+
+        $('.search-close').click(function () {
+            $('.search-bar').css({'margin-top': '-34px', 'margin-bottom': '0'});
+        });
+
+        // jQuery(document).on('click', '.addToCart', function(e) {
+        //
+        //     var CartItem = jQuery(this);
+        //     var CartItemID = CartItem.data('id');
+        //     var CartItemType = CartItem.data('type');
+        //     var CartItemQuantity = CartItem.siblings('.quantity').val();
+        //
+        //     jQuery.ajax({
+        //         type: 'POST',
+        //         data: {
+        //             action: 'add_to_basket',
+        //             id: CartItemID,
+        //             q: (CartItemQuantity >= 1 ? CartItemQuantity : 1),
+        //             t: CartItemType
+        //         },
+        //         dataType: 'json',
+        //         success: function (data, textStatus, jqXHR) {
+        //             if (data.success === true){
+        //                 // jQuery('.basket').html(data.html);
+        //                 // jQuery('.nav .dropdown').addClass('open');
+        //                 // window.location = 'buy_info.php';
+        //                 window.location = window.location.href;
+        //             } else {
+        //                 alert(data.message);
+        //             }
+        //         },
+        //     });
+        //
+        // });
+
+        $(document).on('click', '.dropdown-menu.basket', function (e) {
+            e.stopPropagation();
+        });
+
+        // jQuery(document).on('click', '.close_me', function (e) {
+        //     alert('test');
+        // });
+
+        // jQuery(document).on('click', '.basket .remove', function (e) {
+        //
+        //     e.preventDefault();
+        //
+        //     var CartItem = jQuery(this).closest('tr');
+        //     var CartItemID = CartItem.data('id');
+        //
+        //     jQuery.ajax({
+        //         type: 'POST',
+        //         url: SITEURL + 'cart/',
+        //         data: {
+        //             action: 'remove_from_basket',
+        //             id: CartItemID
+        //         },
+        //         success: function (data, textStatus, jqXHR) {
+        //             if (data.success == true) {
+        //                 jQuery('.basket').html(data.html);
+        //             } else {
+        //                 alert(data.message);
+        //             }
+        //         },
+        //         dataType: 'json'
+        //     });
+        //
+        // });
+
+        jQuery(document).on('submit', '.sendCourseEmail', function (e) {
+
+            // Set some defaults
+            e.preventDefault();
+
+            var form = jQuery(this);
+
+            form.find('.alert').remove();
+
+            jQuery.ajax({
+                type: 'POST',
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success == true) {
+                        form.prepend('<div class="alert alert-success">' + data.message + '</div>');
+                        $(form).closest('.modal').modal('hide');
+                        window.location.reload(true);
+                    } else {
+                        form.prepend('<div class="alert alert-danger">' + data.message + '</div>');
+                    }
+                },
+                dataType: 'json'
+            });
+
+        });
+        
+        jQuery(document).on('submit', '.sendVoucherCode', function (e) {
+
+            // Set some defaults
+            e.preventDefault();
+
+            var form = jQuery(this);
+
+            form.find('.alert').remove();
+
+            jQuery.ajax({
+                type: 'POST',
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success == true) {
+                        form.prepend('<div class="alert alert-success">' + data.message + '</div>');
+                        $(form).closest('.modal').modal('hide');
+                        window.location.reload(true);
+                    } else {
+                        form.prepend('<div class="alert alert-danger">' + data.message + '</div>');
+                    }
+                },
+                dataType: 'json'
+            });
+
+        });
+
+        jQuery(document).on('submit', '.editDetails', function (e) {
+
+            // Set some defaults
+            e.preventDefault();
+
+            var form = jQuery(this);
+
+            form.find('.alert').remove();
+
+            jQuery.ajax({
+                type: 'POST',
+                data: form.serialize(),
+                success: function (data) {
+                    if (data.success == true) {
+                        form.prepend('<div class="alert alert-success">' + data.message + '</div>');
+                        $(form).closest('.modal').modal('hide');
+                        window.location.reload(true);
+                    } else {
+                        form.prepend('<div class="alert alert-danger">' + data.message + '</div>');
+                    }
+                },
+                dataType: 'json'
+            });
+
+        });
+
+
+        // $('#online-courses .course-box .description').matchHeight();
+        //
+        // $('#online-courses .course-box .content').matchHeight();
+
+        // $('#account.login .boxes .box .content .matchHeight').matchHeight();
+
+        // $('.courses .course-box .title').matchHeight();
+
+        $('.row.equal-height > *').matchHeight();
+
+        $('#account.login .boxes .box').matchHeight();
+
+        $('#blog .blog .text').matchHeight();
+
+        $('#post .blog .text').matchHeight();
+
+        // $('#online-courses .course-box .matchHeight').matchHeight();
+
+        function customMatchHeight() {
+
+            if ($('#online-courses').length) {
+
+                if ($(window).width() > 767) {
+
+                    $('#online-courses .course-box').each(function () {
+                        var highestElement = 0;
+                        $(this).find('.matchHeight').each(function () {
+
+                            if ($(this).outerHeight() > highestElement) {
+
+                                highestElement = $(this).outerHeight();
+
+                            }
+
+                        });
+
+                        $(this).find('.matchHeight').outerHeight(highestElement);
+
+                    });
+
+                } else {
+
+                    $('#online-courses .course-box .matchHeight').css('height', 'auto');
+
+                }
+
+            }
+
+        }
+
+        $('.basket .basket-details .up').click(function(){
+            canContinue = false;
+            $(this).siblings('input').get(0).value++;
+        });
+
+        $('.basket .basket-details .down').click(function(){
+            canContinue = false;
+            var oldValue = $(this).siblings('input').get(0).value;
+            if(oldValue > 0) {
+                $(this).siblings('input').get(0).value--;
+            }
+        });
+
+        $('form.order').submit(function(e){
+           if (canContinue === false){
+               alert('It seems you have changed quantity of the items in your cart. Please update the cart before continuing.');
+               e.preventDefault();
+           }
+        });
+
+        customMatchHeight();
+
+        $(window).resize(function () {
+            customMatchHeight();
+        });
+
+
+        $('.download-button').click(function (e) {
+            var download = $(this).data('file');
+            var title = $(this).data('title');
+            $('#myModal input[name="file"]').val(download);
+            $('#myModal h4').text("Download '" + title + "'");
+            $('#myModal').modal();
+            e.preventDefault();
+        });
+
+        tinymce.init({
+            selector: '.wysihtml',
+            plugins: "image link image media code lists advlist emoticons",
+            menubar: "file edit view format",
+            subfolder: "",
+            height: "500px",
+            convert_urls: false,
+            toolbar: "undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright | numlist bullist | forecolor backcolor | link image imagetools emoticons | code"
+        });
+
+        $('.course-select select').on('change', function (e) {
+            var value = $(this).val();
+            if (value.length) {
+                window.location = value;
+            }
+            e.preventDefault();
+        });
+
+        var grid = $('#search .masonry').masonry({
+            isAnimated: false,
+            itemSelector: '.item',
+            transitionDuration: 0
+        });
+
+        grid.masonry('on', 'layoutComplete', function () {
+            grid.masonry();
+        });
+
+        $(window).resize(function () {
+            grid.masonry('reload');
+        });
+
+        $(window).resize(function () {
+            var pageWidth = $(this).width();
+            calcContainerHeight(pageWidth);
+        });
+
+        var pageWidth = $(window).width();
+        calcContainerHeight(pageWidth);
+
+        // $(document).on('click', '.update-cart, .add-voucher', function(e){
+        //
+        //     postData = {};
+        //     var parent = $(this).closest('table').find('.basket-details');
+        //     $(parent).each(function(){
+        //         var data = $(this).find('.prod-qty input[type="number"]');
+        //         var id = data.data('type');
+        //         var qty = data.val();
+        //         postData[id] = qty;
+        //     });
+        //     var code = $(parent).find('input[name="voucher"]').val();
+        //     if ($(this).hasClass('remove-voucher')) code = 'remove';
+        //
+        //     $.ajax({
+        //         type:'GET',
+        //         data:{data:postData,voucher:code,updateCart:1},
+        //         dataType:'html',
+        //         success: function(response){
+        //             $('.basket').empty();
+        //             $('.basket').html(response);
+        //         }
+        //     });
+        //
+        //     e.preventDefault();
+        // });
+        //
+        // $(document).on('click', '.remove-voucher', function(e){
+        //     window.location.href = '?voucher=remove';
+        //     e.preventDefault();
+        // });
+
+        $('#page.asbestos .convert').submit(function(){
+            $(this).submit();
+            return gtag_report_conversion('https://www.hsedocs.com/asbestos-awareness/');
+        });
+
+})(jQuery);
+
+function logit(message) {
+    jQuery.ajax({
+        url: './',
+        type: "POST",
+        data: {logit: true, message: message},
+        dataType: 'json',
+        success: function (result, message) {
+
+        }
+    });
+}
+
+function calcContainerHeight(pageWidth) {
+    if (jQuery(document).find('#sidebar').length && pageWidth >= 991) {
+        var containerHeight = jQuery('#content').height();
+        var sidebarHeight = containerHeight;
+        var sidebar = jQuery(document).find('#sidebar').height();
+        if (containerHeight >= sidebar) {
+            sidebarHeight = containerHeight;
+        } else {
+            sidebarHeight = 'inherit';
+        }
+        jQuery('#sidebar').css('height', sidebarHeight);
+    } else {
+        jQuery('#sidebar').css('height', 'inherit');
+    }
+}
+
+jQuery(document).ready(setAffixWith);
+jQuery(window).resize(setAffixWith);
+
+function setAffixWith() {
+    var colWidth = jQuery('.col-md-3').width();
+    jQuery('.affix').css('width', '' + colWidth + '');
+}
